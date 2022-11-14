@@ -66,7 +66,7 @@ define Device/glinet_gl-axt1800
 	$(call Device/glinet_gl-common)
 	DEVICE_DTS := qcom-ipq6018-gl-axt1800
 	DEVICE_TITLE := GL.iNet GL-AXT1800
-	DEVICE_PACKAGES := ath11k-wifi-gl-ax1800
+	DEVICE_PACKAGES := ath11k-wifi-gl-ax1800 kmod-hwmon-core kmod-hwmon-pwmfan kmod-gl-sdk4-fan 
 endef
 TARGET_DEVICES += glinet_gl-axt1800
 
