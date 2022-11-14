@@ -56,6 +56,7 @@ define Device/glinet_gl-ax1800
 	$(call Device/glinet_gl-common)
 	DEVICE_DTS := qcom-ipq6018-gl-ax1800
 	DEVICE_TITLE := GL.iNet GL-AX1800
+	DEVICE_PACKAGES := ath11k-wifi-gl-axt1800
 	IMAGES += nand-factory.bin
 	IMAGE/nand-factory.bin := append-ubi | qsdk-ipq-factory-nand
 endef
@@ -65,6 +66,7 @@ define Device/glinet_gl-axt1800
 	$(call Device/glinet_gl-common)
 	DEVICE_DTS := qcom-ipq6018-gl-axt1800
 	DEVICE_TITLE := GL.iNet GL-AXT1800
+	DEVICE_PACKAGES := ath11k-wifi-gl-ax1800
 endef
 TARGET_DEVICES += glinet_gl-axt1800
 
@@ -103,7 +105,7 @@ define Device/qihoo_v6
 	DEVICE_DTS := qcom-ipq6018-qihoo-v6
 	DEVICE_DTS_CONFIG := config@cp03-c1
 	DEVICE_TITLE := Qihoo V6
-	DEVICE_PACKAGES := kmod-usb3 kmod-usb-phy-msm
+	DEVICE_PACKAGES := ath11k-wifi-qihoo-v6 kmod-usb3 kmod-usb-phy-msm
 endef
 TARGET_DEVICES += qihoo_v6
 
