@@ -27,13 +27,13 @@
 
 		fan: pwm-fan {
 			compatible = "pwm-fan";
-			pwms = <&pwm 1 255>;
-			pinctrl-0 = <&fan_pins>;
-			pinctrl-names = "default";
+			#cooling-cells = <2>;
 			cooling-min-state = <0>;
 			cooling-max-state = <3>;
-			#cooling-cells = <2>;
-			cooling-levels = <0 150 200 255>;
+			pwms = <&pwm 1 40000 0>;
+			pinctrl-0 = <&fan_pins>;
+			pinctrl-names = "default";
+			cooling-levels = <36 128 192 255>;
 		};
 	};
 };
