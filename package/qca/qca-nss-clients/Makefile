@@ -5,7 +5,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2021-07-27
-PKG_SOURCE_URL:=https://source.codeaurora.org/quic/qsdk/oss/lklm/nss-clients
+PKG_SOURCE_URL:=https://git.codelinaro.org/clo/qsdk/oss/lklm/nss-clients
 PKG_SOURCE_VERSION:=ec7a57bed8914adcbd5bf95de1f0b630296489c1
 PKG_MIRROR_HASH:=bf911b256cf76348652d1b34f80d96742b8eec93a09570a889d51217d70b6ea2
 

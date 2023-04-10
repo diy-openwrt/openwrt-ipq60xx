@@ -5,7 +5,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2021-06-17
-PKG_SOURCE_URL:=https://source.codeaurora.org/quic/qsdk/oss/lklm/qca-nss-ecm
+PKG_SOURCE_URL:=https://git.codelinaro.org/clo/qsdk/oss/lklm/qca-nss-ecm
 PKG_SOURCE_VERSION:=34267065855d32f33264dc3054efb0e8103d627b
 PKG_MIRROR_HASH:=cbcc7cab7a862529e28b8f635079977f566e5908660bf5ea37451e72f0a1de20
 

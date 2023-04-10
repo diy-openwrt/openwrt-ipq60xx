@@ -5,7 +5,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2021-07-18
-PKG_SOURCE_URL:=https://source.codeaurora.org/quic/qsdk/oss/lklm/qca-ssdk
+PKG_SOURCE_URL:=https://git.codelinaro.org/clo/qsdk/oss/lklm/qca-ssdk
 PKG_SOURCE_VERSION:=c06242180efd94f5e01f1a22e5e74d45f56c9035
 PKG_MIRROR_HASH:=39d46819db1b6872b8984278f1286fc08c6acfe4f25e8db3162ea60b532a96e5
 

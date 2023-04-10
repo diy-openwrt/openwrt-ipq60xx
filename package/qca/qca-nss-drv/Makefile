@@ -5,7 +5,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2021-07-05
-PKG_SOURCE_URL:=https://source.codeaurora.org/quic/qsdk/oss/lklm/nss-drv
+PKG_SOURCE_URL:=https://git.codelinaro.org/clo/qsdk/oss/lklm/nss-drv
 PKG_SOURCE_VERSION:=f81f02ba2c2093b17a7d4576f3ae2e947498df18
 PKG_MIRROR_HASH:=510ff6c0eb844cfd459c6e7225bc9df2d4994de16155fa91a981a1a30ef9fcab
 
