@@ -14,6 +14,11 @@ case "$board" in
         [ -n "$idx" ] && \
             ubootenv_add_uci_config "/dev/mtd$idx" "0x0" "0x40000" "0x20000" "2"
 	;;
+    jdc,ax1800-pro)
+        mmcpart="$(find_mmc_part 0:APPSBLENV)"
+        [ -n "$mmcpart" ] && \
+            ubootenv_add_uci_config "$mmcpart" "0x0" "0x40000" "0x20000" "2"
+	;;
 esac
 config_load ubootenv
 config_foreach ubootenv_add_app_config
