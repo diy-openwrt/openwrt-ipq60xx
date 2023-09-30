@@ -56,4 +56,4 @@ try_hg() {
 }
 
 try_version || try_git || try_hg || REV="unknown"
-echo "$REV"
+echo "$REV" | cut -d '-' -f 1
