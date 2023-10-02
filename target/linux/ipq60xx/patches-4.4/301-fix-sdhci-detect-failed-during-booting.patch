@@ -1,0 +1,35 @@
+--- a/drivers/mmc/core/core.c
++++ b/drivers/mmc/core/core.c
+@@ -2458,6 +2458,7 @@ EXPORT_SYMBOL(mmc_hw_reset);
+ 
+ static int mmc_rescan_try_freq(struct mmc_host *host, unsigned freq)
+ {
++	int do_power_cycle = 0;
+ 	host->f_init = freq;
+ 
+ #ifdef CONFIG_MMC_DEBUG
+@@ -2466,6 +2467,12 @@ static int mmc_rescan_try_freq(struct mm
+ #endif
+ 	mmc_power_up(host, host->ocr_avail);
+ 
++need_power_cycle:
++	if (do_power_cycle) {
++		pr_info("%s: %s: reset power\n",
++			mmc_hostname(host), __func__);
++		mmc_power_cycle(host, host->ocr_avail);
++	}
+ 	/*
+ 	 * Some eMMCs (with VCCQ always on) may not be reset after power up, so
+ 	 * do a hardware reset if possible.
+@@ -2487,6 +2494,11 @@ static int mmc_rescan_try_freq(struct mm
+ 		return 0;
+ 	if (!mmc_attach_sd(host))
+ 		return 0;
++	else if (!do_power_cycle) {
++	/* some model need to reset power */
++		do_power_cycle = 1;
++		goto need_power_cycle;
++	}
+ 	if (!mmc_attach_mmc(host))
+ 		return 0;
+ 
