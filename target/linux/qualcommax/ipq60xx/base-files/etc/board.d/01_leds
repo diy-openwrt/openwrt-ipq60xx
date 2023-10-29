@@ -9,6 +9,11 @@ case "$board" in
     jdc,ax1800-pro)
         ucidef_set_led_netdev "wan" "WAN" "net_blue" "eth3"
         ;;
+xiaomi,ax1800)
+	ucidef_set_led_netdev "internet" "Internet" "blue:network" "eth3"
+	;;
+*)
+	;;
 esac
 
 board_config_flush
