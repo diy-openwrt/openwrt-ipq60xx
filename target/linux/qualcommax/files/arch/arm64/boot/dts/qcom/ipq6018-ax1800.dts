@@ -11,137 +11,58 @@
 #include <dt-bindings/gpio/gpio.h>
 
 / {
-	#address-cells = <0x2>;
-	#size-cells = <0x2>;
 	model = "Xiaomi AX1800";
 	compatible = "xiaomi,ax1800", "qcom,ipq6018";
-	interrupt-parent = <&intc>;
 	qcom,msm-id = <0x192 0x0>;
 
 	aliases {
+		serial0 = &blsp1_uart3;
 		led-boot = &led_yellow;
 		led-failsafe = &led_blue;
 		led-running = &led_blue;
 		led-upgrade = &led_yellow;
-		serial0 = &blsp1_uart3;
 
-		ethernet1 = "/soc/dp2";
-		ethernet2 = "/soc/dp3";
-		ethernet3 = "/soc/dp4";
-		ethernet4 = "/soc/dp5";
+		/* Aliases as required by u-boot to patch MAC addresses */
+		//ethernet0 = &dp1;
+		ethernet1 = &dp2;
+		ethernet2 = &dp3;
+		ethernet3 = &dp4;
+		ethernet4 = &dp5;
+
+		label-mac-device = &dp5;
 	};
 
 	chosen {
 		bootargs-append = " root=/dev/ubiblock0_1 swiotlb=1 coherent_pool=2M";
 	};
 
-	soc {
-		mdio: mdio@90000 {
-			pinctrl-0 = <&mdio_pins>;
-			pinctrl-names = "default";
-			phy-reset-gpio = <&tlmm 75 0>;
-			status = "ok";
+	leds {
+		compatible = "gpio-leds";
+		pinctrl-0 = <&leds_pins>;
+		pinctrl-names = "default";
 
-			phy0: ethernet-phy@0 {
-				reg = <0>;
-			};
-			phy1: ethernet-phy@1 {
-				reg = <1>;
-			};
-			phy2: ethernet-phy@2 {
-				reg = <2>;
-			};
-			phy3: ethernet-phy@3 {
-				reg = <3>;
-			};
-			phy4: ethernet-phy@4 {
-				reg = <4>;
-			};
+		led_blue: system-blue {
+			label = "blue:system";
+			gpios = <&tlmm 29 GPIO_ACTIVE_HIGH>;
 		};
 
-		ess-switch@3a000000 {
-			switch_cpu_bmp = <0x1>;  /* cpu port bitmap */
-			switch_lan_bmp = <0x1e>; /* lan port bitmap */
-			switch_wan_bmp = <0x20>; /* wan port bitmap */
-			switch_inner_bmp = <0xc0>; /*inner port bitmap*/
-			switch_mac_mode = <0x0>; /* mac mode for uniphy 0*/
-			switch_mac_mode1 = <0xff>; /* mac mode for uniphy 1*/
-			switch_mac_mode2 = <0xff>; /* mac mode for uniphy 2*/
-
-			qcom,port_phyinfo {
-				port@0 {
-					port_id = <1>;
-					phy_address = <0>;
-				};
-				port@1 {
-					port_id = <2>;
-					phy_address = <1>;
-				};
-				port@2 {
-					port_id = <3>;
-					phy_address = <2>;
-				};
-				port@3 {
-					port_id = <4>;
-					phy_address = <3>;
-				};
-				port@4 {
-					port_id = <5>;
-					phy_address = <4>;
-				};
-			};
+		led_yellow: system-yellow {
+			label = "yellow:system";
+			gpios = <&tlmm 30 GPIO_ACTIVE_HIGH>;
 		};
 
-		dp2 {
-			device_type = "network";
-			compatible = "qcom,nss-dp";
-			qcom,id = <2>;
-			reg = <0x3a001200 0x200>;
-			qcom,mactype = <0>;
-			local-mac-address = [000000000000];
-			qcom,link-poll = <1>;
-			qcom,phy-mdio-addr = <1>;
-			phy-mode = "sgmii";
+		network-blue {
+			label = "blue:network";
+			gpios = <&tlmm 31 GPIO_ACTIVE_HIGH>;
 		};
 
-		dp3 {
-			device_type = "network";
-			compatible = "qcom,nss-dp";
-			qcom,id = <3>;
-			reg = <0x3a001400 0x200>;
-			qcom,mactype = <0>;
-			local-mac-address = [000000000000];
-			qcom,link-poll = <1>;
-			qcom,phy-mdio-addr = <2>;
-			phy-mode = "sgmii";
-		};
-
-		dp4 {
-			device_type = "network";
-			compatible = "qcom,nss-dp";
-			qcom,id = <4>;
-			reg = <0x3a001600 0x200>;
-			qcom,mactype = <0>;
-			local-mac-address = [000000000000];
-			qcom,link-poll = <1>;
-			qcom,phy-mdio-addr = <3>;
-			phy-mode = "sgmii";
-		};
-
-		dp5 {
-			device_type = "network";
-			compatible = "qcom,nss-dp";
-			qcom,id = <5>;
-			reg = <0x3a001800 0x200>;
-			qcom,mactype = <0>;
-			local-mac-address = [000000000000];
-			qcom,link-poll = <1>;
-			qcom,phy-mdio-addr = <4>;
-			phy-mode = "sgmii";
+		network-yellow {
+			label = "yellow:network";
+			gpios = <&tlmm 32 GPIO_ACTIVE_HIGH>;
 		};
 	};
 
-	gpio_keys {
+	keys {
 		compatible = "gpio-keys";
 		pinctrl-0 = <&button_pins>;
 		pinctrl-names = "default";
@@ -154,35 +75,18 @@
 			debounce-interval = <60>;
 		};
 	};
-
-	leds {
-		compatible = "gpio-leds";
-		pinctrl-0 = <&leds_pins>;
-		pinctrl-names = "default";
-
-		led_blue: system-blue {
-			label = "ax1800:blue:system";
-			gpios = <&tlmm 29 GPIO_ACTIVE_HIGH>;
-		};
-
-		led_yellow: system-yellow {
-			label = "ax1800:yellow:system";
-			gpios = <&tlmm 30 GPIO_ACTIVE_HIGH>;
-		};
-
-		network-blue {
-			label = "ax1800:blue:network";
-			gpios = <&tlmm 31 GPIO_ACTIVE_HIGH>;
-		};
-
-		network-yellow {
-			label = "ax1800:yellow:network";
-			gpios = <&tlmm 32 GPIO_ACTIVE_HIGH>;
-		};
-	};
 };
 
 &tlmm {
+	leds_pins: leds_pins {
+		mux {
+			pins = "gpio29", "gpio30", "gpio31", "gpio32";
+			function = "gpio";
+			drive-strength = <8>;
+			bias-pull-down;
+		};
+	};
+
 	button_pins: button_pins {
 		reset_button {
 			pins = "gpio19";
@@ -192,60 +96,31 @@
 		};
 	};
 
-	spi_0_pins: spi_0_pins {
-		mux {
-			pins = "gpio38", "gpio39",
-				"gpio40", "gpio41";
-			function = "blsp0_spi";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
-	};
-
-	uart_pins: uart_pins {
-		mux {
-			pins = "gpio44", "gpio45";
-			function = "blsp2_uart";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
-	};
-
-	mdio_pins: mdio_pinmux {
-		mux_0 {
+	mdio_pins: mdio-pins {
+		mdc {
 			pins = "gpio64";
 			function = "mdc";
 			drive-strength = <8>;
 			bias-pull-up;
 		};
-		mux_1 {
+
+		mdio {
 			pins = "gpio65";
 			function = "mdio";
 			drive-strength = <8>;
 			bias-pull-up;
 		};
-		mux_2 {
-			pins = "gpio75";
-			function = "gpio";
-			bias-pull-up;
-		};
-	};
-
-	leds_pins: leds_pins {
-		mux {
-			pins = "gpio29", "gpio30",
-				"gpio31", "gpio32";
-			function = "gpio";
-			drive-strength = <8>;
-			bias-pull-down;
-		};
 	};
 };
 
 &blsp1_uart3 {
-	pinctrl-0 = <&uart_pins>;
+	pinctrl-0 = <&serial_3_pins>;
 	pinctrl-names = "default";
-	status = "ok";
+	status = "okay";
+};
+
+&qpic_bam {
+	status = "okay";
 };
 
 &qpic_nand {
@@ -264,29 +139,87 @@
 	};
 };
 
-&nss_crypto {
-	status = "ok";
-};
-
-&qpic_bam {
-	status = "ok";
-};
-
-&blsp1_spi1 {
-	pinctrl-0 = <&spi_0_pins>;
-	pinctrl-names = "default";
-	cs-select = <0>;
+&mdio {
 	status = "okay";
 
-	m25p80@0 {
-		#address-cells = <1>;
-		#size-cells = <1>;
-		reg = <0>;
-		compatible = "n25q128a11";
-		//linux,modalias = "m25p80", "n25q128a11";
-		spi-max-frequency = <50000000>;
-		use-default-sizes;
+	pinctrl-0 = <&mdio_pins>;
+	pinctrl-names = "default";
+	reset-gpios = <&tlmm 75 GPIO_ACTIVE_LOW>;
+
+	qca8075_1: ethernet-phy@1 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <1>;
 	};
+
+	qca8075_2: ethernet-phy@2 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <2>;
+	};
+
+	qca8075_3: ethernet-phy@3 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <3>;
+	};
+
+	qca8075_4: ethernet-phy@4 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <4>;
+	};
+};
+
+&switch {
+	status = "okay";
+
+	switch_lan_bmp = <(ESS_PORT2 | ESS_PORT3 | ESS_PORT4)>; /* lan port bitmap */
+	switch_wan_bmp = <ESS_PORT5>; /* wan port bitmap */
+	switch_mac_mode = <MAC_MODE_PSGMII>; /* mac mode for uniphy 0 */
+
+	qcom,port_phyinfo {
+		port@2 {
+			port_id = <2>;
+			phy_address = <1>;
+		};
+		port@3 {
+			port_id = <3>;
+			phy_address = <2>;
+		};
+		port@4 {
+			port_id = <4>;
+			phy_address = <3>;
+		};
+		port@5 {
+			port_id = <5>;
+			phy_address = <4>;
+		};
+	};
+};
+
+&edma {
+	status = "okay";
+};
+
+&dp2 {
+	status = "okay";
+	phy-handle = <&qca8075_1>;
+	label = "lan1";
+};
+
+&dp3 {
+	status = "okay";
+	phy-handle = <&qca8075_2>;
+	label = "lan2";
+};
+
+&dp4 {
+	status = "okay";
+	phy-handle = <&qca8075_3>;
+	label = "lan3";
+};
+
+&dp5 {
+	status = "okay";
+	phy-handle = <&qca8075_4>;
+	label = "wan";
 };
 
 &wifi {
