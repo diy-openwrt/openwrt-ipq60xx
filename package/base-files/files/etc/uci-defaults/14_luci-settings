@@ -1,0 +1,7 @@
+#!/bin/sh
+
+uci batch <<-EOF
+	set system.@system[0].zonename='Asia/Taipei'
+	set system.@system[0].timezone='CST-8'
+	commit system
+EOF
