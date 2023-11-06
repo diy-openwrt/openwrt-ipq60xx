@@ -56,4 +56,5 @@ try_hg() {
 }
 
 try_version || try_git || try_hg || REV="unknown"
+REV="${REV%-*}-$(date +%Y%m%d)"
 echo "$REV"
