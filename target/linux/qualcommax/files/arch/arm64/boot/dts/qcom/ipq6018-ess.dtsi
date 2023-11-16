@@ -24,26 +24,23 @@
 		status = "disabled";
 	};
 
-	networking {
+	ess_instance: ess-instance {
 		#address-cells = <1>;
 		#size-cells = <1>;
+		num_devices = <1>;
 
 		switch: ess-switch@3a000000 {
 			compatible = "qcom,ess-switch-ipq60xx";
 			reg = <0x3a000000 0x1000000>;
 			switch_access_mode = "local bus";
 			mdio-bus = <&mdio>;
-
 			switch_cpu_bmp = <ESS_PORT0>;  /* cpu port bitmap */
 			switch_inner_bmp = <(ESS_PORT6|ESS_PORT7)>; /*inner port bitmap*/
-
+			switch_mac_mode = <MAC_MODE_DISABLED>; /* MAC mode for UNIPHY instance 0 */
+			switch_mac_mode1 = <MAC_MODE_DISABLED>; /* MAC mode for UNIPHY instance 1 */
+			switch_mac_mode2 = <MAC_MODE_DISABLED>; /* MAC mode for UNIPHY instance 2 */
 			bm_tick_mode = <0>; /* bm tick mode */
 			tm_tick_mode = <0>; /* tm tick mode */
-
-			switch_mac_mode = <MAC_MODE_PSGMII>; /* mac mode for uniphy instance0*/
-			switch_mac_mode1 = <MAC_MODE_DISABLED>; /* mac mode for uniphy instance1*/
-			switch_mac_mode2 = <MAC_MODE_DISABLED>; /* mac mode for uniphy instance2*/
-
 			status = "disabled";
 			/* This is a special binding that controls how the malibu PHY are
 			* init. This value reflect the PHY addr of the first malibu PHY.
@@ -459,65 +456,54 @@
 	dp1: dp1@3a001000 {
 		device_type = "network";
 		compatible = "qcom,nss-dp";
+		qcom,id = <1>;
 		reg = <0x0 0x3a001000 0x0 0x200>;
 		qcom,mactype = <0>;
 		local-mac-address = [000000000000];
-		qcom,id = <1>;
 		phy-mode = "sgmii";
 		status = "disabled";
 	};
 
-    dp2: dp2@3a001200 {
+	dp2: dp2@3a001200 {
 		device_type = "network";
 		compatible = "qcom,nss-dp";
+		qcom,id = <2>;
 		reg = <0x0 0x3a001200 0x0 0x200>;
 		qcom,mactype = <0>;
 		local-mac-address = [000000000000];
-		qcom,id = <2>;
 		phy-mode = "sgmii";
 		status = "disabled";
 	};
 
-    dp3: dp3@3a001400 {
+	dp3: dp3@3a001400 {
 		device_type = "network";
 		compatible = "qcom,nss-dp";
+		qcom,id = <3>;
 		reg = <0x0 0x3a001400 0x0 0x200>;
 		qcom,mactype = <0>;
 		local-mac-address = [000000000000];
-		qcom,id = <3>;
 		phy-mode = "sgmii";
 		status = "disabled";
 	};
 
-    dp4: dp4@3a001600 {
-        device_type = "network";
-		compatible = "qcom,nss-dp";
-		reg = <0x0 0x3a001600 0x0 0x200>;
-		qcom,mactype = <0>;
-        local-mac-address = [000000000000];
-		qcom,id = <4>;
-		phy-mode = "sgmii";
-		status = "disabled";
-	};
-
-    dp5: dp5@3a001800 {
-        device_type = "network";
-		compatible = "qcom,nss-dp";
-		reg = <0x0 0x3a001800 0x0 0x200>;
-		qcom,mactype = <0>;
-        local-mac-address = [000000000000];
-		qcom,id = <5>;
-		phy-mode = "sgmii";
-		status = "disabled";
-	};
-
-	dp6: dp6@3a001a00 {
+	dp4: dp4@3a001600 {
 		device_type = "network";
 		compatible = "qcom,nss-dp";
-		reg = <0x0 0x3a001a00 0x0 0x200>;
+		qcom,id = <4>;
+		reg = <0x0 0x3a001600 0x0 0x200>;
 		qcom,mactype = <0>;
 		local-mac-address = [000000000000];
-		qcom,id = <6>;
+		phy-mode = "sgmii";
+		status = "disabled";
+	};
+
+	dp5: dp5@3a001800 {
+		device_type = "network";
+		compatible = "qcom,nss-dp";
+		qcom,id = <5>;
+		reg = <0x0 0x3a001800 0x0 0x200>;
+		qcom,mactype = <0>;
+		local-mac-address = [000000000000];
 		phy-mode = "sgmii";
 		status = "disabled";
 	};
