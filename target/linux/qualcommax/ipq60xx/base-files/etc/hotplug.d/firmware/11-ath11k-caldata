@@ -14,6 +14,9 @@ case "$FIRMWARE" in
 	xiaomi,ax1800)
 		caldata_extract "0:art" 0x1000 0x10000
 		;;
+	redmi,ax5)
+		caldata_extract "0:art" 0x1000 0x10000
+		;;
 	*)
 		exit 1
 		;;
