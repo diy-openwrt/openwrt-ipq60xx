@@ -21,6 +21,9 @@ platform_do_upgrade() {
 	xiaomi,ax1800)
 		nand_do_upgrade "$1"
 		;;
+  	redmi,ax5)
+		nand_do_upgrade "$1"
+		;;
 	*)
 		default_do_upgrade "$1"
 		;;
