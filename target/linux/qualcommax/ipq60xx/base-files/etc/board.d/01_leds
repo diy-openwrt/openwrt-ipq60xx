@@ -9,6 +9,9 @@ case "$board" in
 xiaomi,ax1800)
 	ucidef_set_led_netdev "internet" "Internet" "blue:network" "wan"
 	;;
+redmi,ax5)
+	ucidef_set_led_netdev "internet" "Internet" "blue:network" "wan"
+	;;
 *)
 	;;
 esac
