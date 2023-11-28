@@ -41,7 +41,7 @@ ALLWIFIBOARDS:= \
 	netgear_wax630 \
 	prpl_haze \
 	qnap_301w \
-  redmi_ax5 \
+	redmi_ax5 \
 	redmi_ax6 \
 	wallys_dr40x9 \
 	xiaomi_ax3600 \
