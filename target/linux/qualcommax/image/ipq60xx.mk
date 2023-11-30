@@ -61,6 +61,6 @@ define Device/redmi_ax5
 	PAGESIZE := 2048
 	DEVICE_DTS_CONFIG := config@cp03-c1
 	SOC := ipq6018
-	DEVICE_PACKAGES := ipq-wifi-redmi_ax5
+	DEVICE_PACKAGES := ipq-wifi-redmi_ax5 nss-firmware-ipq6018 kmod-qca-nss-drv
 endef
 TARGET_DEVICES += redmi_ax5
