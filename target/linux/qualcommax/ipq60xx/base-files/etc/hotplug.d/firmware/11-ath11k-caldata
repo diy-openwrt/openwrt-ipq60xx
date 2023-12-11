@@ -11,6 +11,7 @@ case "$FIRMWARE" in
 	case $(board_name) in
 	glinet,gl-axt1800|\
 	glinet,gl-ax1800|\
+	redmi,ax5|\
 	xiaomi,ax1800)
 		caldata_extract "0:art" 0x1000 0x10000
 		;;
