@@ -10,6 +10,7 @@ case "$board" in
         ucidef_set_led_netdev "wan" "WAN" "net_blue" "eth3"
         ;;
 redmi,ax5|\
+redmi,ax5-jdcloud|\
 xiaomi,ax1800)
 	ucidef_set_led_netdev "internet" "Internet" "blue:network" "wan"
 	;;
